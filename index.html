@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PeopleGrid</title>
+</head>
+<body>
+  <h1>PeopleGrid</h1>
+  <h3>Hire Workers (Employers)</h3>
+  <form id="employerForm">
+    <input placeholder="Company" id="company"><br>
+    <input placeholder="Contact Name" id="name"><br>
+    <input placeholder="Phone" id="phone"><br>
+    <input placeholder="Email" id="email"><br>
+    <input placeholder="Job Type" id="job"><br>
+    <input placeholder="City" id="city"><br>
+    <input placeholder="How many workers?" id="workers"><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>Find Work (Workers)</h3>
+  <form id="workerForm" enctype="multipart/form-data">
+    <input placeholder="Full Name" name="name"><br>
+    <input placeholder="Phone" name="phone"><br>
+    <input placeholder="Email" name="email"><br>
+    <input placeholder="Skill" name="skill"><br>
+    <input placeholder="Experience" name="experience"><br>
+    <input placeholder="City" name="city"><br>
+    <input placeholder="Availability" name="availability"><br>
+    <input type="file" name="resume"><br>
+    <button type="submit">Register</button>
+  </form>
+
+<script>
+document.getElementById("employerForm").onsubmit = async (e)=>{
+  e.preventDefault();
+  await fetch("https://peoplegrid.onrender.com/employer", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      company:company.value,
+      name:name.value,
+      phone:phone.value,
+      email:email.value,
+      job:job.value,
+      city:city.value,
+      workers:workers.value
+    })
+  });
+  alert("Employer request sent!");
+}
+
+document.getElementById("workerForm").onsubmit = async (e)=>{
+  e.preventDefault();
+  const formData = new FormData(workerForm);
+  await fetch("https://peoplegrid.onrender.com/worker", {
+    method:"POST",
+    body:formData
+  });
+  alert("Worker registered!");
+}
+</script>
+</body>
+</html>
