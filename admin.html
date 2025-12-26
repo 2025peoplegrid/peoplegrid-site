@@ -2,13 +2,28 @@
 <input id="u" placeholder="Username">
 <input id="p" placeholder="Password" type="password">
 <button onclick="load()">Login</button>
-<pre id="out"></pre>
+<div id="out"></div>
 
 <script>
 async function load(){
   const h = "Basic " + btoa(u.value+":"+p.value);
   const w = await fetch("https://peoplegrid.onrender.com/admin/workers",{headers:{Authorization:h}});
-  const e = await fetch("https://peoplegrid.onrender.com/admin/employers",{headers:{Authorization:h}});
-  out.innerText = "WORKERS:\n"+await w.text()+"\n\nEMPLOYERS:\n"+await e.text();
+  const data = await w.json();
+
+  let html="<h3>Workers</h3>";
+  data.forEach(x=>{
+    html += `
+      <div style="border:1px solid black;padding:10px;margin:10px">
+        <b>${x.name}</b><br>
+        ${x.skill} – ${x.city}<br>
+        Phone: ${x.phone}<br>
+        Email: ${x.email}<br>
+        <a href="https://peoplegrid.onrender.com/admin/resume/${x.resume}" target="_blank">
+          Download Resume
+        </a>
+      </div>
+    `;
+  });
+  out.innerHTML = html;
 }
 </script>
