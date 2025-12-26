@@ -1,0 +1,14 @@
+<h2>PeopleGrid Admin</h2>
+<input id="u" placeholder="Username">
+<input id="p" placeholder="Password" type="password">
+<button onclick="load()">Login</button>
+<pre id="out"></pre>
+
+<script>
+async function load(){
+  const h = "Basic " + btoa(u.value+":"+p.value);
+  const w = await fetch("https://peoplegrid.onrender.com/admin/workers",{headers:{Authorization:h}});
+  const e = await fetch("https://peoplegrid.onrender.com/admin/employers",{headers:{Authorization:h}});
+  out.innerText = "WORKERS:\n"+await w.text()+"\n\nEMPLOYERS:\n"+await e.text();
+}
+</script>
