@@ -25,7 +25,7 @@ async function load(){
         ${x.skill} – ${x.city}<br>
         Phone: ${x.phone}<br>
         Email: ${x.email}<br>
-        <button onclick="download('${x.resume}')">Download Resume</button>
+        <a href="${x.resume}" target="_blank">Download Resume</a>
       </div>
     `;
   });
