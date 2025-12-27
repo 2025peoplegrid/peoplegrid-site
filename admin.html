@@ -8,42 +8,34 @@
 let auth = "";
 
 async function load(){
-  auth = "Basic " + btoa(u.value+":"+p.value);
+  auth = "Basic " + btoa(u.value + ":" + p.value);
 
-  const r = await fetch("https://peoplegrid.onrender.com/admin/workers",{
-    headers:{Authorization:auth}
+  const r = await fetch("https://peoplegrid.onrender.com/admin/workers", {
+    headers: { Authorization: auth }
   });
+
+  if (!r.ok) {
+    alert("Login failed");
+    return;
+  }
 
   const data = await r.json();
 
   let html = "<h3>Workers</h3>";
 
-  data.forEach(x=>{
+  data.forEach(x => {
     html += `
       <div style="border:1px solid black;padding:10px;margin:10px">
         <b>${x.name}</b><br>
-        ${x.skill} – ${x.city}<br>
+        Skill: ${x.skill}<br>
+        City: ${x.city}<br>
         Phone: ${x.phone}<br>
         Email: ${x.email}<br>
-        <a href="${x.resume}" target="_blank">Download Resume</a>
+        <a href="${x.resume}" target="_blank">📄 Download Resume</a>
       </div>
     `;
   });
 
   out.innerHTML = html;
-}
-
-async function download(file){
-  const r = await fetch("https://peoplegrid.onrender.com/admin/resume/"+file,{
-    headers:{Authorization:auth}
-  });
-
-  const blob = await r.blob();
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "resume";
-  a.click();
 }
 </script>
