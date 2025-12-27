@@ -6,7 +6,11 @@
 <body>
   <h1>PeopleGrid</h1>
   <h3>Hire Workers (Employers)</h3>
-  <form id="employerForm">
+  <form 
+  id="employerForm"
+  action="https://peoplegrid.onrender.com/employer"
+  method="POST">
+
     <input placeholder="Company" id="company"><br>
     <input placeholder="Contact Name" id="name"><br>
     <input placeholder="Phone" id="phone"><br>
@@ -18,7 +22,12 @@
   </form>
 
   <h3>Find Work (Workers)</h3>
-  <form id="workerForm" enctype="multipart/form-data">
+ <form 
+  id="workerForm"
+  action="https://peoplegrid.onrender.com/worker"
+  method="POST"
+  enctype="multipart/form-data">
+
     <input placeholder="Full Name" name="name"><br>
     <input placeholder="Phone" name="phone"><br>
     <input placeholder="Email" name="email"><br>
@@ -61,3 +70,4 @@ document.getElementById("workerForm").onsubmit = async (e)=>{
 </script>
 </body>
 </html>
+
